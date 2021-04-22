@@ -1,45 +1,38 @@
-
-
 <template>
   <div id="app">
     <div id="nav">
       <navbar/>
-      <router-link to="/">Home</router-link> | 
-      <router-link to="/about">About</router-link>
     </div>
     <router-view />
   </div>
 </template>
 
+<style lang="scss">
+//  import the Bootstrap scss files and the other scss attributs
+@import './assets/app.scss';
+</style>
+
 <style>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
-#nav {
-  padding: 30px;
-}
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
 
-<style lang="scss"> @import './assets/app.scss'; </style>
-
 <script>
+//  import bootstrap javaScripts allows dynamic components like Dropdowns to work
+import '../node_modules/bootstrap/dist/js/bootstrap'
+
+//  import the navigationbar component
 import navbar from './components/navbar.vue'
 
 export default {
   name: 'App',
   components: {
-    navbar,
+    navbar
   }
 }
 </script>
@@ -49,16 +42,4 @@ export default {
   <img alt="Vue logo" src="./assets/logo.png">
   <HelloWorld msg="Welcome to Your Vue.js App"/>
 </template>
-
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
 -->
