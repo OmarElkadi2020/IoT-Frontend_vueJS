@@ -1,38 +1,44 @@
 <template>
   <div id="app">
     <div id="nav">
-      <navbar/>
+      <navbar />
     </div>
     <router-view />
+    <thdfooter />
   </div>
 </template>
 
 <style lang="scss">
+//  global imports
 //  import the Bootstrap scss files and the other scss attributs
-@import './assets/app.scss';
-</style>
+@import "./assets/app.scss";
 
-<style>
+//  global style
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Saira, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: $thdblue;
 }
 </style>
 
 <script>
+//  global imports
+
 //  import bootstrap javaScripts allows dynamic components like Dropdowns to work
-import '../node_modules/bootstrap/dist/js/bootstrap'
-
-//  import the navigationbar component
+import '../node_modules/bootstrap/dist/js/bootstrap.min.js'
+//  import the js code ofthe navigationbar component
 import navbar from './components/navbar.vue'
+import thdfooter from './components/thdfooter.vue'
 
+// global script
 export default {
   name: 'App',
   components: {
-    navbar
+    navbar,
+    thdfooter
   }
 }
 </script>

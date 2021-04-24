@@ -1,11 +1,13 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
+          <a class="navbar-brand" href="/de">
+            <img src="../assets/logos/public_src_assets_THD.png" class="img-brand" alt="Responsive image">
+          </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse d-flex" id="navbarSupportedContent">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <router-link to="/" class="nav-link active" aria-current="page">Home</router-link> <!--vue link instead of the anchor-->
@@ -28,11 +30,30 @@
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
               </li>
             </ul>
-            <form class="d-flex ml-auto">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success ml-1" type="submit">Search</button>
-            </form>
+             <form class="d-flex ml-auto">
+              <input class="form-control me-2 d-flex" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success mx-1" type="submit">Search</button>
+              </form>
           </div>
         </div>
       </nav>
 </template>
+
+<style>
+@media (max-width: 1300px)
+{.img-brand {
+    transform: scale(0.7);
+    margin-left: -30px;
+  }
+}
+.img-brand
+{
+    max-width: 380px !important;
+    display: block;
+    max-width: 100%;
+    transform: scale(0.9);
+}
+.navbar{
+    background-color: rgba(47, 47, 47, 0.8) transparent;
+}
+</style>
