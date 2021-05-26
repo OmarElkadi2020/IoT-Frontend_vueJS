@@ -1,7 +1,4 @@
 <template>
-  <div>
-    <img src="../assets/public_src_assets_THD.png" class="img-fluid w-100" alt="THD Campus" />
-  </div>
   <h1>THD Mensa Information</h1>
   <p>
     here you find Information from mensa

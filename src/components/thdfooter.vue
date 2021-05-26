@@ -4,9 +4,9 @@
       <p class="text-center">
         © 2020 |
         <a>Technische Hochschule Deggendorf</a> |
-        <a href="/de/Impressum">Impressum</a> |
-        <a href="/de/Datenschutz">Datenschutz</a> |
-        <a href="/de/Barrierefreiheit">Barrierefreiheit Erklärung</a>
+        <a href="#">Impressum</a> |
+        <a href="#">Datenschutz</a> |
+        <a href="#">Barrierefreiheit Erklärung</a>
       </p>
     </div>
   </footer>
