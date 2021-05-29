@@ -1,8 +1,5 @@
 <template>
-  <nav
-    class="navbar navbar-expand-lg navbar-dark"
-    :class="{ 'fixed-top': isfixedtop }"
-  >
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="/de">
         <img
@@ -27,16 +24,21 @@
           class="navbar-nav nav-pills nav-fill nav-justified me-auto mb-2 mb-lg-0"
           role="tabpanel"
         >
-          <li class="nav-item">
+          <li class="nav-item btn btn-outline-success mx-1 align-self-center">
             <router-link to="/" class="nav-link" aria-current="page">
               Home
             </router-link>
             <!--vue link instead of the anchor-->
           </li>
-          <li class="nav-item">
+          <li class="nav-item btn btn-outline-success mx-1 align-self-center">
+            <router-link to="/SickForm" class="nav-link"
+              >Krakmelden</router-link
+            >
+          </li>
+          <li class="nav-item btn btn-outline-success mx-1 align-self-center">
             <router-link to="/about" class="nav-link">About</router-link>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown btn btn-outline-success mx-1">
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -96,23 +98,25 @@
 .navbar {
   background-color: rgba(0, 0, 0, 0.6);
 }
-
-/* @media (max-width: 991.98px) {
+/* if the windows is small the navbar will not be fixed top any more */
+@media (max-width: 991.98px) {
   .fixed-top {
     position: relative !important;
   }
-} */
+  li {
+    width: 100%;
+    margin: 5px;
+    padding: 0px;
+  }
+}
 </style>
 <script>
 export default {
-  data () {
-    return {
-    }
-  },
-  methods: {
-    isfixedtop: () => {
-      if (window.innerWidth < 991) { return false } else { return true }
-    }
-  }
+  data () {}
+  // methods: {
+  //   isfixedtop: () => {
+  //     if (window.innerWidth < 991) { return false } else { return true }
+  //   }
+  // }
 }
 </script>
