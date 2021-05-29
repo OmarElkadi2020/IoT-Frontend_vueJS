@@ -25,8 +25,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: $thdblue;
 }
+
 @include media-breakpoint-down(md) {
   .header-img {
     display: none;
