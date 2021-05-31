@@ -4,6 +4,7 @@
     @submit.prevent="OnSubmit"
     enctype="multipart/form-data"
   >
+
     <div class="form-row">
       <div class="form-group col-md-5">
         <label for="fname">Vorname</label>
@@ -131,6 +132,7 @@
 
 <script lang="ts">
 import axios from 'axios'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 export default {
   data () {
@@ -404,17 +406,50 @@ export default {
   },
   methods: {
     handleFileUpload () {
-      this.EvidenceFile = this.$refs.file.files[0]
+      // get the file from tag
+      const file = this.$refs.file.files[0]
+
+      // check the file validation (extention and size)
+      const allowedExtentions = ['jpg', 'pdf', 'png', 'jpeg']
+      const sizeLimit = 2000000 // 2 megabyte
+      const fileExtension = file.name.split('.').pop()
+      console.log(fileExtension)
+
+      if (!allowedExtentions.includes(fileExtension)) { // extention validation
+        this.$refs.file.value = null
+        Swal.fire({
+          title: 'Fehler!',
+          text: 'Die Datei muss jpg, jpeg, png oder pdf',
+          icon: 'error'
+        })
+      } else if (file.size > sizeLimit) { // size validation
+        this.$refs.file.value = null
+        Swal.fire({
+          title: 'Fehler!',
+          text: 'Die Datei ist zu Groß',
+          icon: 'error'
+        }
+        )
+      } else { // if valid then load the file in our valiable
+        Swal.fire({
+          title: 'Super!',
+          text: 'Die Datei wurde erfolgreich geladen',
+          icon: 'success'
+        })
+        this.EvidenceFile = file
+      }
     },
-    async OnSubmit () {
+    async OnSubmit (event) {
       var formData = new FormData()
 
+      // prepare and bulid the messege
       // FormData is a dictionary type -> (key , value)
       formData.append('patientStudent', JSON.stringify(this.patientStudent))
       formData.append('sickNoteData', JSON.stringify(this.SickNote))
-
+      // add file to the message body
       formData.append('sickNoteEvidence', this.EvidenceFile)
 
+      // perform the post request
       var res = await axios.post('http://localhost:3000/ppatient', formData,
         {
           headers: {
@@ -424,7 +459,8 @@ export default {
 
       const data = res.data
       console.log(data)
-      alert('submitted')
+      Swal.fire('Danke! Das Formular wurde schon gesandet')
+      event.target.reset()
     }
   }
 }
