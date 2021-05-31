@@ -111,7 +111,8 @@
       </div>
       <div class="form-group col-md-4">
         <label for="formFile" class="form-label">Krankmeldung</label>
-        <input class="form-control" type="file" id="formFile" ref="file" accept=".pdf|.docx|image/*" @change="handleFileUpload()">
+        <!-- set a refrence on tag using ref="file" will allow us to get the file -->
+        <input class="form-control" type="file" id="formFile" ref="file" accept=".pdf,.docx,image/*" @change="handleFileUpload()" required>
       </div>
     </div>
     <!--
@@ -402,7 +403,7 @@ export default {
     }
   },
   methods: {
-    handleFileUpload (event) {
+    handleFileUpload () {
       this.EvidenceFile = this.$refs.file.files[0]
     },
     async OnSubmit () {
@@ -410,8 +411,9 @@ export default {
 
       // FormData is a dictionary type -> (key , value)
       formData.append('patientStudent', JSON.stringify(this.patientStudent))
-      formData.append('sickNote', JSON.stringify(this.SickNote))
-      formData.append('file', this.EvidenceFile)
+      formData.append('sickNoteData', JSON.stringify(this.SickNote))
+
+      formData.append('sickNoteEvidence', this.EvidenceFile)
 
       var res = await axios.post('http://localhost:3000/ppatient', formData,
         {
