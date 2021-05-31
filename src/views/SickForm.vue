@@ -1,17 +1,17 @@
 <template>
   <form
-    action="http://localhost:3000/SickNote"
-    method="POST"
-    class="container mb-1 mt-1 border border-info rounded-3"
+    class="container mb-1 mt-1 p-1 border border-info rounded"
+    @submit.prevent="OnSubmit"
+    enctype="multipart/form-data"
   >
-   <div class="form-row">
+    <div class="form-row">
       <div class="form-group col-md-5">
         <label for="fname">Vorname</label>
         <input
           type="text"
           class="form-control"
           id="fname"
-          v-model="paitentStudent.ForeName"
+          v-model="patientStudent.ForeName"
           required
         />
       </div>
@@ -21,17 +21,17 @@
           type="text"
           class="form-control"
           id="lname"
-          v-model="paitentStudent.LastName"
+          v-model="patientStudent.LastName"
           required
         />
         </div>
         <div class="form-group col-md-2">
         <label for="Matnum">Matrikuelnummer</label>
         <input
-          type="number"
+          type="text"
           class="form-control"
           id="Matnum"
-          v-model="paitentStudent.MatrikelNumber"
+          v-model="patientStudent.MatrikelNumber"
           required
         />
       </div>
@@ -43,7 +43,7 @@
           type="email"
           class="form-control"
           id="inputEmail4"
-          v-model="paitentStudent.EMail"
+          v-model="patientStudent.EMail"
           required
         />
       </div>
@@ -54,7 +54,7 @@
           class="form-control"
           placeholder="+00 0000 00000000"
           id="phone"
-          v-model="paitentStudent.PhoneNumber"
+          v-model="patientStudent.PhoneNumber"
           required
         />
       </div>
@@ -66,7 +66,7 @@
           type="text"
           class="form-control"
           id="Street"
-          v-model="paitentStudent.Address.Street"
+          v-model="patientStudent.Address.Street"
           required
         />
       </div>
@@ -76,7 +76,7 @@
           type="text"
           class="form-control"
           id="HausNumber"
-          v-model="paitentStudent.Address.HausNumber"
+          v-model="patientStudent.Address.HausNumber"
           required
         />
       </div>
@@ -84,38 +84,38 @@
     <div class="form-row">
       <div class="form-group col-md-2">
         <label for="inputZip">Postleizahl</label>
-        <input type="text" class="form-control" id="inputZip" required />
+        <input type="text" class="form-control" id="inputZip" v-model="patientStudent.Address.ZIPcode" required />
       </div>
       <div class="form-group col-md-6">
         <label for="inputCity">Stadt</label>
-        <input type="text" class="form-control" id="inputCity"    v-model="paitentStudent.Address.ZIPcode" required />
+        <input type="text" class="form-control" id="inputCity"    v-model="patientStudent.Address.City" required />
       </div>
       <div class="form-group col-md-4">
         <label for="inputCountry">Land</label>
-        <select id="inputCountry" class="form-control" v-model="paitentStudent.Address.selectedCountry">
+        <select id="inputCountry" class="form-control" v-model="patientStudent.Address.selectedCountry">
            <option v-for="country in countries" v-bind:key="country.code">
             {{country.name}}
             </option>
      </select>
     </div>
     </div>
-    <!-- 4.Row -->
+    <!-- 5.Row -->
      <div class="form-row">
       <div class="form-group col-md-4">
         <label for="date-input-start">Startdatum</label>
-        <input class="form-control" type="date" value="2011-08-19" id="date-input-start" required>
-
+        <input class="form-control" type="date" id="date-input-start" v-model="SickNote.StartDate" required>
       </div>
       <div class="form-group col-md-4">
       <label for="date-input-end">Enddatum</label>
-       <input class="form-control" type="date" value="2011-08-19" id="date-input-end" required>
+       <input class="form-control" type="date" id="date-input-end" v-model="SickNote.EndDate" required>
       </div>
       <div class="form-group col-md-4">
-        <label for="formFile" class="form-label"></label>
-        <input class="form-control" type="file" id="formFile">
+        <label for="formFile" class="form-label">Krankmeldung</label>
+        <input class="form-control" type="file" id="formFile" ref="file" accept=".pdf|.docx|image/*" @change="handleFileUpload()">
       </div>
     </div>
-    <!-- <div class="form-group">
+    <!--
+     <div class="form-group">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" id="gridCheck" />
         <label class="form-check-label" for="gridCheck">
@@ -123,15 +123,19 @@
         </label>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary">Sign in</button> -->
+    -->
+    <button type="submit" class="btn btn-success">Abschicken</button>
   </form>
 </template>
 
 <script lang="ts">
+import axios from 'axios'
+
 export default {
   data () {
     return {
-      paitentStudent: {
+      EvidenceFile: '',
+      patientStudent: {
         ForeName: '',
         LastName: '',
         MatrikelNumber: '',
@@ -146,9 +150,8 @@ export default {
         }
       },
       SickNote: {
-        StartDate: new Date(),
-        EndDate: new Date(),
-        EvidenceFile: null
+        StartDate: new Date().getDate(),
+        EndDate: new Date().getDate()
       },
       countries:
       [
@@ -396,6 +399,30 @@ export default {
         { name: 'Zambia', code: 'ZM' },
         { name: 'Zimbabwe', code: 'ZW' }
       ]
+    }
+  },
+  methods: {
+    handleFileUpload (event) {
+      this.EvidenceFile = this.$refs.file.files[0]
+    },
+    async OnSubmit () {
+      var formData = new FormData()
+
+      // FormData is a dictionary type -> (key , value)
+      formData.append('patientStudent', JSON.stringify(this.patientStudent))
+      formData.append('sickNote', JSON.stringify(this.SickNote))
+      formData.append('file', this.EvidenceFile)
+
+      var res = await axios.post('http://localhost:3000/ppatient', formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+
+      const data = res.data
+      console.log(data)
+      alert('submitted')
     }
   }
 }

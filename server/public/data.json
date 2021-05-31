@@ -1,0 +1,20 @@
+{
+   "patientStudent":{
+      "ForeName":"Omar",
+      "LastName":"Elkadi",
+      "MatrikelNumber":"147",
+      "PhoneNumber":"+4917647696902",
+      "EMail":"elkadi.omar@outlook.de",
+      "Address":{
+         "Street":"graflinger str",
+         "HausNumber":"graflinger str",
+         "City":"Deggendorf",
+         "ZIPcode":"44952",
+         "selectedCountry":"Egypt"
+      }
+   },
+   "sickNote":{
+      "StartDate":"2021-05-20",
+      "EndDate":"2021-05-20"
+   }
+}
