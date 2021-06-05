@@ -47,26 +47,26 @@ export class patientRoutes {
 
     // parse JSON to Objects
     var patientStudent = JSON.parse(body.patientStudent);
-    var sickNote = JSON.parse(body.sickNoteData);
+    var sickNote = JSON.parse(body.SickNote);
+    var message = JSON.parse(body.Message);
 
-    var sicknessReport = {
-      patientStudent,
-      sickNote
-    };
+  
     const file = req.file;
     if (!file) {
       console.log("not file error");
     }
 
-    res
-      .status(200)
-      .send("the body and the file are recived" + JSON.stringify(body));
-
     const path = "./uploads/reports/" + patientStudent.MatrikelNumber + ".json";
-
+    var sicknessReport = {
+      patientStudent,
+      sickNote,
+      message,
+      sickNoteFilePath : path,
+    };
     writeFile(path, JSON.stringify(sicknessReport), function (err) {
       if (err) return console.log(err);
       else return console.log("file generated in path: " + path);
     });
+    res.status(200).send("the body and the file are recived" + JSON.stringify(body));
   }
 }

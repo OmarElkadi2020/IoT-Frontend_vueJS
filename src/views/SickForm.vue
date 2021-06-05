@@ -1,12 +1,14 @@
 <template>
   <form
-    class="container mb-1 mt-1 p-1 border border-info rounded"
+    class="container mb-3 mt-3 p-2 border border-info rounded"
     @submit.prevent="OnSubmit"
     enctype="multipart/form-data"
   >
-
+  <div class="row">
+  <div class="col-md-8">
+    <!--1. name-->
     <div class="form-row">
-      <div class="form-group col-md-5">
+      <div class="form-group col-md-5 col-sm-12 col-sm-12">
         <label for="fname">Vorname</label>
         <input
           type="text"
@@ -16,7 +18,7 @@
           required
         />
       </div>
-      <div class="form-group col-md-5">
+      <div class="form-group col-md-5 col-sm-12">
         <label for="lname">Nachname</label>
         <input
           type="text"
@@ -37,8 +39,9 @@
         />
       </div>
     </div>
+      <!--2. Email && phonenumber -->
     <div class="form-row">
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-6 col-sm-12">
         <label for="inputEmail4">E-mail</label>
         <input
           type="email"
@@ -48,7 +51,7 @@
           required
         />
       </div>
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-6 col-sm-12">
         <label for="phone">Anrufnummer</label>
         <input
           type="tel"
@@ -60,6 +63,7 @@
         />
       </div>
     </div>
+      <!--3. Adress street haus num -->
     <div class="form-row">
       <div class="form-group col-md-10">
         <label for="Street">Straße</label>
@@ -82,12 +86,13 @@
         />
       </div>
     </div>
+    <!-- 4. Adress city + country-->
     <div class="form-row">
       <div class="form-group col-md-2">
         <label for="inputZip">Postleizahl</label>
         <input type="text" class="form-control" id="inputZip" v-model="patientStudent.Address.ZIPcode" required />
       </div>
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-6 col-sm-12">
         <label for="inputCity">Stadt</label>
         <input type="text" class="form-control" id="inputCity"    v-model="patientStudent.Address.City" required />
       </div>
@@ -100,7 +105,7 @@
      </select>
     </div>
     </div>
-    <!-- 5.Row -->
+    <!-- 5.date select and file upload -->
      <div class="form-row">
       <div class="form-group col-md-4">
         <label for="date-input-start">Startdatum</label>
@@ -116,18 +121,38 @@
         <input class="form-control" type="file" id="formFile" ref="file" accept=".pdf,.docx,image/*" @change="handleFileUpload()" required>
       </div>
     </div>
-    <!--
-     <div class="form-group">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="gridCheck" />
-        <label class="form-check-label" for="gridCheck">
-          Check me out
-        </label>
+  </div>
+  <div class="col-md-4">
+    <div class="form-row h-50 p-1">
+    <div class="form-group col-md-12">
+        <label for="diag">Diagnose</label>
+        <textarea
+          type="text-area"
+          class="form-control h-75"
+          id="diag"
+          v-model="SickNote.diagnose"
+          required
+        >
+        </textarea>
+    </div>
+    </div>
+    <div class="form-row h-50 p-1">
+      <div class="form-group col-md-12">
+        <label for="mess">Nachricht</label>
+        <textarea
+          type="text-area"
+          class="form-control h-75"
+          id="mess"
+          v-model="Message"
+          required
+        >
+        </textarea>
       </div>
     </div>
-    -->
-    <button type="submit" class="btn btn-success">Abschicken</button>
-  </form>
+  </div>
+</div>
+<button type="submit" class="btn btn-success">Abschicken</button>
+</form>
 </template>
 
 <script lang="ts">
@@ -153,9 +178,11 @@ export default {
         }
       },
       SickNote: {
+        diagnose: '',
         StartDate: new Date().getDate(),
         EndDate: new Date().getDate()
       },
+      Message: '',
       countries:
       [
         { name: 'Afghanistan', code: 'AF' },
@@ -405,6 +432,7 @@ export default {
     }
   },
   methods: {
+    // get the file in a variable and check the validation
     handleFileUpload () {
       // get the file from tag
       const file = this.$refs.file.files[0]
@@ -416,7 +444,7 @@ export default {
       console.log(fileExtension)
 
       if (!allowedExtentions.includes(fileExtension)) { // extention validation
-        this.$refs.file.value = null
+        this.$refs.file.value = null // delete the file from selection
         Swal.fire({
           title: 'Fehler!',
           text: 'Die Datei muss jpg, jpeg, png oder pdf',
@@ -445,7 +473,8 @@ export default {
       // prepare and bulid the messege
       // FormData is a dictionary type -> (key , value)
       formData.append('patientStudent', JSON.stringify(this.patientStudent))
-      formData.append('sickNoteData', JSON.stringify(this.SickNote))
+      formData.append('SickNote', JSON.stringify(this.SickNote))
+      formData.append('Message', JSON.stringify(this.Message))
       // add file to the message body
       formData.append('sickNoteEvidence', this.EvidenceFile)
 
@@ -459,7 +488,13 @@ export default {
 
       const data = res.data
       console.log(data)
-      Swal.fire('Danke! Das Formular wurde schon gesandet')
+      // trigger alert the the form is accepted
+      Swal.fire({
+        title: 'Gesandet!',
+        text: 'Danke für Ihre Meldung',
+        icon: 'success'
+      })
+      // reset the form
       event.target.reset()
     }
   }
