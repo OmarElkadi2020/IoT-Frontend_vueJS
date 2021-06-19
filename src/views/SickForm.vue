@@ -160,6 +160,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 export default {
+  name: 'SickForm',
   data () {
     return {
       EvidenceFile: '',

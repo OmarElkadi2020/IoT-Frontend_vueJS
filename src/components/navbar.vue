@@ -38,7 +38,10 @@
           <li class="nav-item btn btn-outline-success mx-1 align-self-center">
             <router-link to="/about" class="nav-link">About</router-link>
           </li>
-          <li class="nav-item dropdown btn btn-outline-success mx-1">
+           <li class="btn btn-outline-success mx-1 align-self-center">
+            <router-link to="/CoronaStat" class="nav-link">Covid-19</router-link>
+          </li>
+          <!-- <li class="nav-item dropdown btn btn-outline-success mx-1">
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -55,8 +58,8 @@
               <li><hr class="dropdown-divider" /></li>
               <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
-          </li>
-          <li class="nav-item">
+          </li> -->
+          <!-- <li class="nav-item">
             <a
               class="nav-link disabled"
               href="#"
@@ -64,7 +67,7 @@
               aria-disabled="true"
               >Disabled</a
             >
-          </li>
+          </li> -->
         </ul>
         <form class="d-flex ml-auto">
           <input
@@ -112,7 +115,6 @@
 </style>
 <script>
 export default {
-  data () {}
   // methods: {
   //   isfixedtop: () => {
   //     if (window.innerWidth < 991) { return false } else { return true }
