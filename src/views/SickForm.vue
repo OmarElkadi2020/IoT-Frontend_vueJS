@@ -9,32 +9,31 @@
     <!--1. name-->
     <div class="form-row" >
       <div class="form-group col-md-5 col-sm-12 col-sm-12">
-        <label for="fname" class="form-label">Vorname</label>
         <input
           type="text"
           class="form-control"
           id="fname"
+          placeholder="Vorname"
           v-model="patientStudent.ForeName"
           required
         />
-        <div class="valid-feedback">sieht gut aus!</div>
       </div>
       <div class="form-group col-md-5 col-sm-12">
-        <label for="lname">Nachname</label>
         <input
           type="text"
           class="form-control"
           id="lname"
+          placeholder="Nachname"
           v-model="patientStudent.LastName"
           required
         />
         </div>
         <div class="form-group col-md-2">
-        <label for="Matnum">Matrikuelnummer</label>
         <input
           type="text"
           class="form-control"
           id="Matnum"
+          placeholder="Matrikelnum"
           v-model="patientStudent.MatrikelNumber"
           required
         />
@@ -43,21 +42,20 @@
       <!--2. Email && phonenumber -->
     <div class="form-row">
       <div class="form-group col-md-6 col-sm-12">
-        <label for="inputEmail4">E-mail</label>
         <input
           type="email"
           class="form-control"
           id="inputEmail4"
+          placeholder="E-Mail"
           v-model="patientStudent.EMail"
           required
         />
       </div>
       <div class="form-group col-md-6 col-sm-12">
-        <label for="phone">Anrufnummer</label>
         <input
           type="tel"
           class="form-control"
-          placeholder="+00 0000 00000000"
+          placeholder="Rufnummer"
           id="phone"
           v-model="patientStudent.PhoneNumber"
           required
@@ -66,22 +64,22 @@
     </div>
       <!--3. Adress street haus num -->
     <div class="form-row">
-      <div class="form-group col-md-10">
-        <label for="Street">Straße</label>
+      <div class="form-group col-md-9">
         <input
           type="text"
           class="form-control"
           id="Street"
+          placeholder="Straße"
           v-model="patientStudent.Address.Street"
           required
         />
       </div>
-      <div class="form-group col-md-2">
-        <label for="HausNumber">Hausnummer</label>
+      <div class="form-group col-md-3">
         <input
           type="text"
           class="form-control"
-          id="HausNumber"
+          id="Number"
+          placeholder="Haus Nummer"
           v-model="patientStudent.Address.HausNumber"
           required
         />
@@ -90,16 +88,13 @@
     <!-- 4. Adress city + country-->
     <div class="form-row">
       <div class="form-group col-md-2">
-        <label for="inputZip">Postleizahl</label>
-        <input type="text" class="form-control" id="inputZip" v-model="patientStudent.Address.ZIPcode" required />
+        <input type="text" class="form-control" id="inputZip" placeholder="Postleizahl" v-model="patientStudent.Address.ZIPcode" required />
       </div>
       <div class="form-group col-md-6 col-sm-12">
-        <label for="inputCity">Stadt</label>
-        <input type="text" class="form-control" id="inputCity"    v-model="patientStudent.Address.City" required />
+        <input type="text" class="form-control" id="inputCity" placeholder="Stadt"   v-model="patientStudent.Address.City" required />
       </div>
       <div class="form-group col-md-4">
-        <label for="inputCountry">Land</label>
-        <select id="inputCountry" class="form-control" v-model="patientStudent.Address.selectedCountry">
+        <select id="inputCountry" class="form-control"  v-model="patientStudent.Address.selectedCountry">
            <option v-for="country in countries" v-bind:key="country.code">
             {{country.name}}
             </option>
