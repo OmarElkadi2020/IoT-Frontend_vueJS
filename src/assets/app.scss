@@ -5,19 +5,21 @@
 @import "../../node_modules/bootstrap-scss/functions"; 
 // @import "bootstrap/variables"; 
 @import "../../node_modules/bootstrap-scss/variables";
-// $theme-colors: map-remove($theme-colors, "primary", "danger"); 
+// $theme-colors: map-remove($theme-colors, "primary", "danger");
+@import "../../node_modules/bootstrap-scss/mixins" ;
 // Then add additional custom code here
 
 $thdblue: #1a4273; 
 $thddarkgrey: #6f6f6e; 
 $thdgrey: #a8a8a8; 
 $thdlightgrey: #dadada; 
-$green: rgb(91, 227, 0); // for tests
+$thddonaublue: #009fe3; // for tests
 
 $theme-colors: ( 
-    "primary": $thdblue, 
+    "primary": $thdblue,
+    "success":  $thddonaublue,
     "danger": rgb(231, 61, 85)
-    );
+);
 
 //$body-bg: $green;
 

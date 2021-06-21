@@ -102,7 +102,7 @@
   background-color: rgba(0, 0, 0, 0.6);
 }
 /* if the windows is small the navbar will not be fixed top any more */
-@media (max-width: 991.98px) {
+@media (max-width: 1000 px) {
   .fixed-top {
     position: relative !important;
   }

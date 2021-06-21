@@ -1,15 +1,15 @@
 <template>
   <form
-    class="container mb-3 mt-3 p-2 border border-info rounded"
+    class="container mb-3 mt-3 p-2 border border-success rounded needs-validation"
     @submit.prevent="OnSubmit"
     enctype="multipart/form-data"
   >
   <div class="row">
   <div class="col-md-8">
     <!--1. name-->
-    <div class="form-row">
+    <div class="form-row" >
       <div class="form-group col-md-5 col-sm-12 col-sm-12">
-        <label for="fname">Vorname</label>
+        <label for="fname" class="form-label">Vorname</label>
         <input
           type="text"
           class="form-control"
@@ -17,6 +17,7 @@
           v-model="patientStudent.ForeName"
           required
         />
+        <div class="valid-feedback">sieht gut aus!</div>
       </div>
       <div class="form-group col-md-5 col-sm-12">
         <label for="lname">Nachname</label>
