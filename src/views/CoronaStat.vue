@@ -1,4 +1,6 @@
 <template>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <!-- <div v-for="CityHistory in CasesHistory.data['09271'].history" :key="CityHistory.date" class="weather-data">
 <div class="cases">
 <div>
@@ -15,10 +17,10 @@
   <div class="card">
   <!-- Card header -->
     <div class="d-flex justify-content-around p-3">
-      <button type="button" class="btn btn-outline-secondary" @click="add4">2 Monaten weiter </button>
-      <button type="button" class="btn btn-outline-secondary" @click="minus4">2 Monten züruck</button>
-      <button type="button" class="btn btn-outline-secondary" @click="showLastMonth">Letzte Montat</button>
-      <button type="button" class="btn btn-outline-secondary" @click="fullview">Voller Ansicht</button>
+      <a type="button" class="" @click="monthAxisBack"><i class="material-icons">chevron_left</i></a>
+      <a type="button" class="" @click="fullView"><i class="material-icons">fullscreen</i></a>
+      <a type="button" class="" @click="currentMonth"><i class="material-icons">today</i></a>
+      <a type="button" class="" @click="monthAxisForward"><i class="material-icons">chevron_right</i></a>
     </div>
   <!-- Card body -->
     <div class="card-body ">
@@ -35,6 +37,16 @@
   </div>
 </div>
 </template>
+
+<style lang="scss">
+
+  @import "../assets/app.scss";
+  $big_icon : 36px !important;
+  i {
+    color: $thddonaublue;
+    font-size: $big_icon;
+  };
+</style>
 
 <script lang="ts">
 import axios from 'axios'
@@ -144,28 +156,28 @@ export default {
       }
     }
 
-    const showLastMonth = () => {
+    const currentMonth = () => {
       lineChart.options.scales.x.min = dateslength - 30
       lineChart.options.scales.x.max = dateslength
 
       console.log('here')
       chartRef.value.update(250)
     }
-    const add4 = () => {
+    const monthAxisForward = () => {
       if (lineChart.options.scales.x.max <= dateslength - 30) {
         lineChart.options.scales.x.min += 30
         lineChart.options.scales.x.max += 30
       }
       chartRef.value.update(250)
     }
-    const minus4 = () => {
+    const monthAxisBack = () => {
       if (lineChart.options.scales.x.min >= 0) {
         lineChart.options.scales.x.min -= 30
         lineChart.options.scales.x.max -= 30
       }
       chartRef.value.update(250)
     }
-    const fullview = () => {
+    const fullView = () => {
       lineChart.options.scales.x.min = 0
       lineChart.options.scales.x.max = dateslength
       chartRef.value.update(250)
@@ -174,11 +186,11 @@ export default {
       lineChart,
       CasesHistory,
       CoronaStatBY,
-      showLastMonth,
+      currentMonth,
       chartRef,
-      add4,
-      minus4,
-      fullview
+      monthAxisForward,
+      monthAxisBack,
+      fullView
     }
   },
   data () {
