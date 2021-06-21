@@ -3,44 +3,44 @@
     href="https://fonts.googleapis.com/icon?family=Material+Icons"
     rel="stylesheet"
   />
-  <div class="container ">
+  <div class="container">
     <!-- <button v-on:click="getlCases(CoronaHisDeg.data['09271'].history)">Get Corona Data</button> -->
     <div class="btn-group d-flex justify-content-around p-3 mx-5 mt-5">
       <a type="button" class="tooltipx" @click="NewCasesHisBayern">
         <span class="tooltiptextx">Bayern</span>
-        <i class="material-icons" style="color:#e63c54">lens</i>
+        <i class="material-icons" style="color: #e63c54">lens</i>
       </a>
       <a type="button" class="tooltipx" @click="NewCasesHisDeggendorf"
         ><span class="tooltiptextx">Deggendorf</span
-        ><i class="material-icons" style="color:#6f6f6e">lens</i>
+        ><i class="material-icons" style="color: #6f6f6e">lens</i>
       </a>
     </div>
     <div class="card border-success m-2">
       <!-- Card header -->
-        <div class="row">
-          <div class="col btn-group d-flex justify-content-around p-3 mx-5">
-            <a type="button" class="tooltipx" @click="fullView"
-              ><span class="tooltiptextx">Voller Ansicht</span
-              ><i class="material-icons">fullscreen</i></a
-            >
-          </div>
-          <div class="col btn-group d-flex justify-content-around p-3 mx-5">
-            <a type="button" class="tooltipx" @click="currentMonth"
-              ><span class="tooltiptextx">Dieser Monat</span
-              ><i class="material-icons">today</i></a
-            >
-            <a type="button" class="tooltipx" @click="monthAxisBack"
-              ><span class="tooltiptextx">Monat zurück</span
-              ><i class="material-icons">chevron_left</i></a
-            >
-            <a type="button" class="tooltipx" @click="monthAxisForward"
-              ><span class="tooltiptextx">Monat Weiter</span
-              ><i class="material-icons">chevron_right</i></a
-            >
+      <div class="row">
+        <div class="col btn-group d-flex justify-content-around p-3 mx-5">
+          <a type="button" class="tooltipx" @click="fullView"
+            ><span class="tooltiptextx">Voller Ansicht</span
+            ><i class="material-icons">fullscreen</i></a
+          >
+        </div>
+        <div class="col btn-group d-flex justify-content-around p-3 mx-5">
+          <a type="button" class="tooltipx" @click="currentMonth"
+            ><span class="tooltiptextx">Dieser Monat</span
+            ><i class="material-icons">today</i></a
+          >
+          <a type="button" class="tooltipx" @click="monthAxisBack"
+            ><span class="tooltiptextx">Monat zurück</span
+            ><i class="material-icons">chevron_left</i></a
+          >
+          <a type="button" class="tooltipx" @click="monthAxisForward"
+            ><span class="tooltiptextx">Monat Weiter</span
+            ><i class="material-icons">chevron_right</i></a
+          >
         </div>
       </div>
       <!-- Card body -->
-      <div class="card-body ">
+      <div class="card-body">
         <div class="chart">
           <vue3-chart-js
             :id="BarChart.id"
@@ -103,57 +103,55 @@ i {
 </style>
 
 <script lang="ts">
-import axios from 'axios'
-import Vue3ChartJs from '@j-t-mcc/vue3-chartjs'
-import zoomPlugin from 'chartjs-plugin-zoom'
-import dataLabels from 'chartjs-plugin-datalabels'
-import { onBeforeMount, ref } from 'vue'
-import 'bootstrap/dist/js/bootstrap.bundle'
-import { bootstrap } from 'bootstrap/dist/js/bootstrap'
+import axios from "axios";
+import Vue3ChartJs from "@j-t-mcc/vue3-chartjs";
+import zoomPlugin from "chartjs-plugin-zoom";
+import dataLabels from "chartjs-plugin-datalabels";
+import { onBeforeMount, ref } from "vue";
 
 // globally registered and available for all charts
-Vue3ChartJs.registerGlobalPlugins([zoomPlugin])
+Vue3ChartJs.registerGlobalPlugins([zoomPlugin]);
 
 export default {
-  name: 'CoronaStat',
+  name: "CoronaStat",
   components: {
-    Vue3ChartJs
+    Vue3ChartJs,
   },
-  setup () {
-    const chartRef = ref(null) // ref(0)
-    let dateslength = 0
-    var tooltipList
+  setup() {
+    const chartRef = ref(null); // ref(0)
+    let dateslength = 0;
+    var tooltipList;
     const CoronaHisDeg = ref({
       data: {
-        '09271': {
-          history: []
-        }
-      }
-    })
+        "09271": {
+          history: [],
+        },
+      },
+    });
     const CoronaHisBY = ref({
       data: {
         BY: {
-          history: []
-        }
-      }
-    })
+          history: [],
+        },
+      },
+    });
     const BarChart = {
-      id: 'bar',
-      type: 'bar',
+      id: "bar",
+      type: "bar",
       // locally registered and available for this chart
       plugins: [dataLabels],
       data: {
         labels: [],
         datasets: [
           {
-            label: '',
+            label: "",
             data: [],
-            borderColor: ['Black'],
-            backgroundColor: '',
+            borderColor: ["Black"],
+            backgroundColor: "",
             borderWidth: 0.5,
-            borderRadius: 2
-          }
-        ]
+            borderRadius: 2,
+          },
+        ],
       },
       options: {
         responsive: true,
@@ -161,118 +159,114 @@ export default {
           zoom: {
             zoom: {
               wheel: {
-                enabled: true
+                enabled: true,
               },
               pinch: {
-                enabled: true
+                enabled: true,
               },
-              mode: 'x'
+              mode: "x",
             },
             pan: {
               enabled: true,
-              mode: 'x'
-            }
+              mode: "x",
+            },
           },
           datalabels: {
             backgroundColor: function (context) {
-              return context.dataset.backgroundColor
+              return context.dataset.backgroundColor;
             },
             borderRadius: 4,
-            color: 'white',
+            color: "white",
             font: {
-              weight: 'bold'
+              weight: "bold",
             },
             formatter: Math.round,
-            padding: 6
-          }
+            padding: 6,
+          },
         },
         scales: {
           x: {
             min: 0,
-            max: 500
-          }
-        }
-      }
-    }
-    async function NewCasesHisDeggendorf () {
+            max: 500,
+          },
+        },
+      },
+    };
+    async function NewCasesHisDeggendorf() {
       await axios
-        .get('https://api.corona-zahlen.org/districts/09271/history/cases')
-        .then(response => (CoronaHisDeg.value = response.data))
-      const his = CoronaHisDeg.value.data['09271'].history
-      var cases = []
-      var dates = []
-      his.forEach(element => {
+        .get("https://api.corona-zahlen.org/districts/09271/history/cases")
+        .then((response) => (CoronaHisDeg.value = response.data));
+      const his = CoronaHisDeg.value.data["09271"].history;
+      var cases = [];
+      var dates = [];
+      his.forEach((element) => {
         // BarChart.data.labels.push(element.date.substr(0, 10))
         // BarChart.data.datasets[0].data.push(element.cases)
-        cases.push(element.cases)
-        dates.push(element.date.substr(0, 10))
-      })
-      BarChart.data.datasets[0].data = cases
-      BarChart.data.datasets[0].backgroundColor = 'rgba(111,111,110,1)'
-      BarChart.data.labels = dates
-      BarChart.data.datasets[0].label = 'Deggendorf Covid-19 Neubefälleverlauf'
-      dateslength = cases.length
-      chartRef.value.update(1)
+        cases.push(element.cases);
+        dates.push(element.date.substr(0, 10));
+      });
+      BarChart.data.datasets[0].data = cases;
+      BarChart.data.datasets[0].backgroundColor = "rgba(111,111,110,1)";
+      BarChart.data.labels = dates;
+      BarChart.data.datasets[0].label = "Deggendorf Covid-19 Neubefälleverlauf";
+      dateslength = cases.length;
+      chartRef.value.update(1);
     }
     const NewCasesHisBayern = async () => {
       await axios
-        .get('https://api.corona-zahlen.org/states/BY/history/cases')
-        .then(response => (CoronaHisBY.value = response.data))
+        .get("https://api.corona-zahlen.org/states/BY/history/cases")
+        .then((response) => (CoronaHisBY.value = response.data));
 
-      const his = CoronaHisBY.value.data.BY.history
-      console.log(his)
-      var cases = []
-      var dates = []
-      his.forEach(element => {
+      const his = CoronaHisBY.value.data.BY.history;
+      console.log(his);
+      var cases = [];
+      var dates = [];
+      his.forEach((element) => {
         // lineChart.data.labels.push(element.date.substr(0, 10))
         // lineChart.data.datasets[0].data.push(element.cases)
-        cases.push(element.cases)
-        dates.push(element.date.substr(0, 10))
-      })
-      BarChart.data.datasets[0].data = cases
-      BarChart.data.labels = dates
-      BarChart.data.datasets[0].backgroundColor = 'rgba(231,61,85,1)'
-      BarChart.data.datasets[0].label = 'Bayer Covid-19 Neubefälleverlauf'
-      dateslength = cases.length
-      chartRef.value.update()
-    }
+        cases.push(element.cases);
+        dates.push(element.date.substr(0, 10));
+      });
+      BarChart.data.datasets[0].data = cases;
+      BarChart.data.labels = dates;
+      BarChart.data.datasets[0].backgroundColor = "rgba(231,61,85,1)";
+      BarChart.data.datasets[0].label = "Bayer Covid-19 Neubefälleverlauf";
+      dateslength = cases.length;
+      chartRef.value.update();
+    };
 
     onBeforeMount(async () => {
-      await NewCasesHisDeggendorf()
-      var tooltipTriggerList = [].slice.call(
-        document.querySelectorAll('[data-bs-toggle="tooltip"]')
-      )
-      tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-      })
-    })
+      await NewCasesHisDeggendorf();
+      BarChart.options.scales.x.min = 350;
+      BarChart.options.scales.x.max = dateslength;
+    });
 
     const currentMonth = () => {
-      BarChart.options.scales.x.min = dateslength - 30
-      BarChart.options.scales.x.max = dateslength
+      BarChart.options.scales.x.min = dateslength - 30;
+      BarChart.options.scales.x.max = dateslength;
 
-      console.log('here')
-      chartRef.value.update(0)
-    }
+      console.log("here");
+      chartRef.value.update(0);
+    };
     const monthAxisForward = () => {
       if (BarChart.options.scales.x.max <= dateslength - 30) {
-        BarChart.options.scales.x.min += 30
-        BarChart.options.scales.x.max += 30
+        BarChart.options.scales.x.min += 30;
+        BarChart.options.scales.x.max += 30;
       }
-      chartRef.value.update(0)
-    }
+      chartRef.value.update(0);
+    };
     const monthAxisBack = () => {
       if (BarChart.options.scales.x.min >= 0) {
-        BarChart.options.scales.x.min -= 30
-        BarChart.options.scales.x.max -= 30
+        BarChart.options.scales.x.min -= 30;
+        BarChart.options.scales.x.max -= 30;
       }
-      chartRef.value.update(0)
-    }
+      chartRef.value.update(0);
+    };
     const fullView = () => {
-      BarChart.options.scales.x.min = 0
-      BarChart.options.scales.x.max = dateslength
-      chartRef.value.update(0)
-    }
+      BarChart.options.scales.x.min = 0;
+      BarChart.options.scales.x.max = dateslength;
+      chartRef.value.update(0);
+    };
     return {
       BarChart,
       chartRef,
@@ -282,8 +276,8 @@ export default {
       fullView,
       NewCasesHisBayern,
       NewCasesHisDeggendorf,
-      tooltipList
-    }
-  }
-}
+      tooltipList,
+    };
+  },
+};
 </script>
