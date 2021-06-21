@@ -24,21 +24,21 @@
           class="navbar-nav nav-pills nav-fill nav-justified me-auto mb-2 mb-lg-0"
           role="tabpanel"
         >
-          <li class="nav-item btn btn-outline-success mx-1 align-self-center">
+          <li class="nav-item btn btn-outline-success mx-1 align-self-center w-100 mb-1">
             <router-link to="/" class="nav-link" aria-current="page">
               Home
             </router-link>
             <!--vue link instead of the anchor-->
           </li>
-          <li class="nav-item btn btn-outline-success mx-1 align-self-center">
+          <li class="nav-item btn btn-outline-success mx-1 align-self-center w-100 mb-1">
             <router-link to="/SickForm" class="nav-link"
               >Krakmelden</router-link
             >
           </li>
-          <li class="nav-item btn btn-outline-success mx-1 align-self-center">
+          <li class="nav-item btn btn-outline-success mx-1 align-self-center w-100 mb-1">
             <router-link to="/about" class="nav-link">About</router-link>
           </li>
-           <li class="btn btn-outline-success mx-1 align-self-center">
+           <li class="nav-item btn btn-outline-success mx-1 align-self-center w-100 mb-1 text-nowrap">
             <router-link to="/CoronaStat" class="nav-link">Covid-19</router-link>
           </li>
           <!-- <li class="nav-item dropdown btn btn-outline-success mx-1">
@@ -69,7 +69,7 @@
             >
           </li> -->
         </ul>
-        <form class="d-flex ml-auto">
+        <!-- <form class="d-flex ml-auto">
           <input
             class="form-control me-2 d-flex"
             type="search"
@@ -79,7 +79,7 @@
           <button class="btn btn-outline-success mx-1" type="submit">
             Search
           </button>
-        </form>
+        </form> -->
       </div>
     </div>
   </nav>
@@ -95,14 +95,13 @@
 .img-brand {
   max-width: 380px !important;
   display: block;
-  max-width: 100%;
-  transform: scale(0.9);
+  transform: scale(0.7);
 }
 .navbar {
   background-color: rgba(0, 0, 0, 0.6);
 }
 /* if the windows is small the navbar will not be fixed top any more */
-@media (max-width: 1000 px) {
+@media (max-width: 1000px) {
   .fixed-top {
     position: relative !important;
   }
